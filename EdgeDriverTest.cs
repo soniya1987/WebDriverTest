@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Edge;
+using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading;
@@ -31,11 +32,13 @@ namespace WebDriverTest
             Thread.Sleep(2000);
             IWebElement emailElement = _driver.FindElement(By.Id("ap_email"));
             emailElement.Clear();
-            emailElement.SendKeys("xyz@domain.com");
+            Debug.WriteLine(Environment.GetEnvironmentVariable("X-Amazon-UserName"));
+            Debug.WriteLine(Environment.GetEnvironmentVariable("X-Amazon-SecretKey"));
+            emailElement.SendKeys(Environment.GetEnvironmentVariable("X-Amazon-UserName"));
             _driver.FindElement(By.Id("continue")).Click();
             IWebElement passwordElement = _driver.FindElement(By.Id("ap_password"));
             passwordElement.Clear();
-            passwordElement.SendKeys("Abcd1234$");
+            passwordElement.SendKeys(Environment.GetEnvironmentVariable("X-Amazon-SecretKey"));
             _driver.FindElement(By.Id("signInSubmit")).Click();
         }
 
